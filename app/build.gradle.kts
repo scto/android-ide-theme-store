@@ -54,13 +54,11 @@ android {
     }
 }
 
-/*
 configurations {
     implementation.get().exclude("org.jetbrains", "annotations")
 }
-*/
 
-val explode by configurations.creating
+//val explode by configurations.creating
 
 dependencies {
     implementation(libs.androidx.core.ktx)
@@ -100,7 +98,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    explode("org.jetbrains", "annotations")
+    //explode("org.jetbrains", "annotations")
 }
 
 kapt {
