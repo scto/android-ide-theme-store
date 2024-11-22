@@ -16,6 +16,7 @@ class ThemeActivityViewModel @Inject constructor(
     private val httpClient: OkHttpClient,
     @Assisted private val url: String
 ) : ViewModel() {
+    @AssistedInject
     interface ThemeActivityViewModelFactory {
         fun create(url: String)
     }
