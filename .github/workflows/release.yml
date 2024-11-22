@@ -1,38 +1,34 @@
-name: Release Android CI
+name: Release Build CI
 
 on:
-  push:
-    branches:
-      - main
-      - dev
-    paths-ignore:
-      - '**/*.md'
   workflow_dispatch:
 
 jobs:
+  build:
 
-  build-release:
-    name: Build Release
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v4.1.0
         with:
-          java-version: '17'
           distribution: 'temurin'
-          cache: gradle
+          java-version: '17'
 
-      - name: Grant execute permission for gradlew
+      - name: Give permission to executable
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew assembleRelease && mv app/build/outputs/apk/release/*.apk app/androidthemestore.apk
+      - name: Build with gradle
+        uses: gradle/gradle-build-action@v3.1.0
+        with:
+          gradle-version: nightly
+          arguments: assembleRelease
 
-      - name: Archive APK
+      - name: Upload release apk
         uses: actions/upload-artifact@v4
         with:
-          name: AndroidIDE-Theme-Store-Release
-          path: app/androidthemestore-release.apk
+          name: apk-release
+          path: app/build/outputs/apk/release
