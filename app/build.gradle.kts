@@ -54,6 +54,14 @@ android {
     }
 }
 
+/*
+configurations {
+    implementation.get().exclude("org.jetbrains", "annotations")
+}
+*/
+
+val explode by configurations.creating
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -92,13 +100,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    configurations {
-        runtimeClasspath {
-            exclude(group = "org.jetbrains", module = "annotations)
-        }
-    }
+    explode("org.jetbrains", "annotations")
 }
-    
 
 kapt {
     correctErrorTypes = true
