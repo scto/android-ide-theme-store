@@ -11,8 +11,6 @@ on:
 
 jobs:
 
-  build-release:
-    n
   build_debug_apk:
     name: Build Debug
     runs-on: ubuntu-latest
