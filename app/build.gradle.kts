@@ -52,11 +52,6 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    configurations {
-        implementation {
-            exclude(group = "org.jetbrains", module = "annotations)
-        }
-    }
 }
 
 dependencies {
@@ -96,7 +91,14 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    configurations {
+        runtimeClasspath {
+            exclude(group = "org.jetbrains", module = "annotations)
+        }
+    }
 }
+    
 
 kapt {
     correctErrorTypes = true
