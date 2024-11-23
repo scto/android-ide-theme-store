@@ -82,6 +82,15 @@ class ThemeActivity : ComponentActivity() {
     @Inject
     lateinit var httpClient: OkHttpClient
 
+    @Inject
+    lateinit var themeActivityViewModelFactory: ThemeActivityViewModelFactory;
+    /*
+    fun setupService(config: Config): MyDataService {
+        val service = serviceFactory.create(config)
+        return service
+    }
+    */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
