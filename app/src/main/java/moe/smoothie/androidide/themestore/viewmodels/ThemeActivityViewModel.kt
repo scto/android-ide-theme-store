@@ -11,16 +11,17 @@ import moe.smoothie.androidide.themestore.ThemeState
 import okhttp3.OkHttpClient
 import javax.inject.Inject
 
+@AssistedFactory
+interface ThemeActivityViewModelFactory {
+    @AssistedInject
+    fun create(@Assisted url: String)
+}
+
 @HiltViewModel
 class ThemeActivityViewModel @Inject constructor(
     private val httpClient: OkHttpClient,
     @Assisted private val url: String
 ) : ViewModel() {
-    @AssistedInject
-    interface ThemeActivityViewModelFactory {
-        fun create(url: String)
-    }
-
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
@@ -28,6 +29,6 @@ class ThemeActivityViewModel @Inject constructor(
     val themeState: StateFlow<ThemeState?> = _themeState
 
     fun loadInfo() {
-        
+
     }
 }
