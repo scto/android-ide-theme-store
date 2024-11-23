@@ -82,8 +82,8 @@ class ThemeActivity : ComponentActivity() {
     @Inject
     lateinit var httpClient: OkHttpClient
 
-    @Inject
-    lateinit var themeActivityViewModelFactory: ThemeActivityViewModelFactory;
+    //@Inject
+    //lateinit var themeActivityViewModelFactory: ThemeActivityViewModelFactory;
     /*
     fun setupService(config: Config): MyDataService {
         val service = serviceFactory.create(config)
