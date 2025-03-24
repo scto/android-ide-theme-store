@@ -17,7 +17,8 @@ interface ThemeActivityViewModelFactory {
 }
 
 @HiltViewModel
-class ThemeActivityViewModel @AssistedInject constructor(
+@AssistedInject
+class ThemeActivityViewModel constructor(
     private val httpClient: OkHttpClient,
     @Assisted private val url: String
 ) : ViewModel() {
