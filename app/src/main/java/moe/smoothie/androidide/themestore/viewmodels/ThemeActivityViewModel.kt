@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,8 +18,7 @@ interface ThemeActivityViewModelFactory {
 }
 
 @HiltViewModel
-@AssistedInject
-class ThemeActivityViewModel constructor(
+class ThemeActivityViewModel @AssistedInject constructor(
     private val httpClient: OkHttpClient,
     @Assisted private val url: String
 ) : ViewModel() {
