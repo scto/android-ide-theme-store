@@ -13,11 +13,11 @@ import javax.inject.Inject
 
 @AssistedFactory
 interface ThemeActivityViewModelFactory {
-    fun create(url: String)
+    fun create(url: String) : ThemeActivityViewModel
 }
 
 @HiltViewModel
-class ThemeActivityViewModel @Inject constructor(
+class ThemeActivityViewModel @AssistedInject constructor(
     private val httpClient: OkHttpClient,
     @Assisted private val url: String
 ) : ViewModel() {
