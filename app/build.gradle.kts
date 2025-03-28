@@ -17,10 +17,10 @@ android {
     namespace = "moe.smoothie.androidide.themestore"
     compileSdk = 34
 
-    androidResources {
-        @Suppress("UnstableApiUsage")
-        generateLocaleConfig = true
-    }
+//    androidResources {
+//        @Suppress("UnstableApiUsage")
+//        generateLocaleConfig = true
+//    }
 
     defaultConfig {
         applicationId = "moe.smoothie.androidide.themestore"
