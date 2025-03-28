@@ -94,7 +94,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    //implementation(libs.hilt.android)
+    implementation(libs.hilt.android)
     implementation(libs.okhttp)
     implementation(libs.okhttp.coroutines)
     implementation(libs.kotlinx.serialization.json)
@@ -106,9 +106,9 @@ dependencies {
     implementation(libs.aboutlibraries.core)
     implementation(libs.aboutlibraries.compose.m3)
 
-    //implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
 
-    //kapt(libs.hilt.android.compiler)
+    kapt(libs.hilt.android.compiler)
 
     //testImplementation(libs.junit)
     //testImplementation(libs.hilt.android.testing)
@@ -128,9 +128,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 }
 
-//kapt {
-//    correctErrorTypes = true
-//}
+kapt {
+    correctErrorTypes = true
+}
 
 private fun getSecretProperty(name: String): String {
     val file = project.rootProject.file("token.properties")
