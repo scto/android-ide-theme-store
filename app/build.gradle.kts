@@ -15,7 +15,7 @@ plugins {
 
 android {
     namespace = "moe.smoothie.androidide.themestore"
-    compileSdk = 34
+//    compileSdk = 34
 
 //    androidResources {
 //        @Suppress("UnstableApiUsage")
