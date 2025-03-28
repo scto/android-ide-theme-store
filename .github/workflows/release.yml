@@ -42,20 +42,20 @@ jobs:
         run: |
           build_type=${{ matrix.build_type }}
           ./gradlew :app:assemble${build_type^}
-      - name: Copy ${{ matrix.build_type }} APK
-        run: |
-          cp app/build/outputs/apk/${{ matrix.build_type }}/app-*.apk ./
-      - name: Upload app-${{ matrix.build_type }} APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-${{ matrix.build_type }}
-          path: app-${{ matrix.build_type }}.apk
+      #- name: Copy ${{ matrix.build_type }} APK
+      #  run: |
+      #    cp app/build/outputs/apk/${{ matrix.build_type }}/app-*.apk ./
+      #- name: Upload app-${{ matrix.build_type }} APK
+      #  uses: actions/upload-artifact@v4
+      #  with:
+      #    name: app-${{ matrix.build_type }}
+      #    path: app-${{ matrix.build_type }}.apk
 
       #- name: Generate APK
       #  run: ./gradlew assemble${{ matrix.build-type }}
 
-      #- name: Upload APK
-      #  uses: actions/upload-artifact@master
-      #  with:
-      #    name: app-${{ matrix.build-type }}
-      #    path: app/build/outputs/apk/${{ matrix.build-type }}/app-${{ matrix.build-type }}.apk
+      - name: Upload APK
+        uses: actions/upload-artifact@master
+        with:
+          name: app-${{ matrix.build-type }}
+          path: app/build/outputs/apk/${{ matrix.build-type }}/app-${{ matrix.build-type }}.apk
