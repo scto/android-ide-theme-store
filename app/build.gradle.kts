@@ -27,7 +27,7 @@ android {
 
         vectorDrawables.useSupportLibrary = true
     }
-    
+    /*
     signingConfigs {
         create("general") {
             storeFile = file("test.keystore")
@@ -36,11 +36,12 @@ android {
             storePassword = "test"
         }
     }
+    */
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("general")
+            //signingConfig = signingConfigs.getByName("general")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -49,7 +50,7 @@ android {
         debug {
             applicationIdSuffix = ".debug"
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("general")
+            //signingConfig = signingConfigs.getByName("general")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
