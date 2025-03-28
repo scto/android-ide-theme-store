@@ -12,8 +12,8 @@ plugins {
   alias(libs.plugins.kotlin.compose) apply false
   alias(libs.plugins.kotlin.serialization) apply false
 //  alias(libs.plugins.aboutlibraries) apply false
-//  kotlin("kapt") version "2.0.20" apply false
-//  id("com.google.dagger.hilt.android") version "2.52" apply false
+  kotlin("kapt") version "2.0.20" apply false
+  id("com.google.dagger.hilt.android") version "2.52" apply false
 //  kotlin("jvm") version "2.0.20" apply false
 }
 
