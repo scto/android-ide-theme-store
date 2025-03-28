@@ -17,9 +17,9 @@ plugins {
 //  kotlin("jvm") version "2.0.20" apply false
 }
 
-buildscript {
-  dependencies { classpath(libs.androidx.navigation.safe.args.gradle.plugin) }
-}
+//buildscript {
+//  dependencies { classpath(libs.androidx.navigation.safe.args.gradle.plugin) }
+//}
 
 fun Project.configureBaseExtension() {
   extensions.findByType(BaseExtension::class)?.run {
