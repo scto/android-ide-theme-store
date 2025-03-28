@@ -23,7 +23,7 @@ plugins {
 
 fun Project.configureBaseExtension() {
   extensions.findByType(BaseExtension::class)?.run {
-    compileSdkVersion(34)
+    compileSdkVersion(35)
 
     defaultConfig {
       minSdk = 26
