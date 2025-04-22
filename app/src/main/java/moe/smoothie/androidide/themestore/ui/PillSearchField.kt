@@ -52,9 +52,9 @@ fun pillSearchFieldHeight() = max(pillSearchFieldTextStyle().lineHeight.toDp(), 
 @Composable
 fun PillSearchField(
     modifier: Modifier = Modifier,
-    onValueChanged: (String) -> Unit = { },
+    onValueChanged: (String) -> Unit = {},
     elevation: Dp = 0.dp,
-    initialQuery: String = ""
+    initialQuery: String = "",
 ) {
     val tag = "PillSearchFieldSearchField"
 
@@ -64,35 +64,37 @@ fun PillSearchField(
 
     val focusManager = LocalFocusManager.current
     Box(
-        modifier = modifier
-            .shadow(elevation)
-            .background(
-                color = MaterialTheme.colorScheme.surfaceContainer,
-                shape = RoundedCornerShape(200.dp)
-            )
+        modifier =
+            modifier
+                .shadow(elevation)
+                .background(
+                    color = MaterialTheme.colorScheme.surfaceContainer,
+                    shape = RoundedCornerShape(200.dp),
+                )
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .size(24.dp),
+                modifier = Modifier.padding(16.dp).size(24.dp),
                 painter = painterResource(R.drawable.baseline_search_24),
-                contentDescription = null
+                contentDescription = null,
             )
 
             Box(Modifier.weight(1f)) {
                 androidx.compose.animation.AnimatedVisibility(
-                    visible = state.isEmpty(), enter = fadeIn(), exit = fadeOut()
+                    visible = state.isEmpty(),
+                    enter = fadeIn(),
+                    exit = fadeOut(),
                 ) {
                     Text(
                         stringResource(R.string.message_search_bar_placeholder),
                         maxLines = 1,
-                        modifier = Modifier
-                            .height(pillSearchFieldHeight())
-                            .wrapContentHeight()
-                            .fillMaxWidth(),
-                        style = pillSearchFieldTextStyle()
-                            .copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                        modifier =
+                            Modifier.height(pillSearchFieldHeight())
+                                .wrapContentHeight()
+                                .fillMaxWidth(),
+                        style =
+                            pillSearchFieldTextStyle()
+                                .copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
                     )
                 }
                 BasicTextField(
@@ -102,39 +104,45 @@ fun PillSearchField(
                         onValueChanged(it)
                     },
                     maxLines = 1,
-                    modifier = Modifier
-                        .height(pillSearchFieldHeight())
-                        .wrapContentHeight()
-                        .fillMaxWidth()
-                        .focusRequester(focusRequester)
-                        .onFocusChanged {
-                            focused = it.isFocused
-                            Log.d(tag, "Focus changed: $it")
-                        },
+                    modifier =
+                        Modifier.height(pillSearchFieldHeight())
+                            .wrapContentHeight()
+                            .fillMaxWidth()
+                            .focusRequester(focusRequester)
+                            .onFocusChanged {
+                                focused = it.isFocused
+                                Log.d(tag, "Focus changed: $it")
+                            },
                     textStyle = pillSearchFieldTextStyle(),
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        imeAction = ImeAction.Search, autoCorrectEnabled = false
-                    ),
-                    keyboardActions = KeyboardActions(onSearch = {
-                        Log.d(tag, "Received the \"Search\" action, freeing focus")
-                        focusManager.clearFocus()
-                    })
+                    keyboardOptions =
+                        KeyboardOptions.Default.copy(
+                            imeAction = ImeAction.Search,
+                            autoCorrectEnabled = false,
+                        ),
+                    keyboardActions =
+                        KeyboardActions(
+                            onSearch = {
+                                Log.d(tag, "Received the \"Search\" action, freeing focus")
+                                focusManager.clearFocus()
+                            }
+                        ),
                 )
             }
-            AnimatedVisibility(
-                visible = state.isNotEmpty(), enter = fadeIn(), exit = fadeOut()
-            ) {
-                IconButton(onClick = {
-                    state = ""
-                    onValueChanged(state)
+            AnimatedVisibility(visible = state.isNotEmpty(), enter = fadeIn(), exit = fadeOut()) {
+                IconButton(
+                    onClick = {
+                        state = ""
+                        onValueChanged(state)
 
-                    if (!focused) {
-                        focusRequester.requestFocus()
+                        if (!focused) {
+                            focusRequester.requestFocus()
+                        }
                     }
-                }) {
+                ) {
                     Icon(
                         painter = painterResource(R.drawable.baseline_close_24),
-                        contentDescription = stringResource(R.string.content_description_clear_search)
+                        contentDescription =
+                            stringResource(R.string.content_description_clear_search),
                     )
                 }
             }
@@ -142,26 +150,18 @@ fun PillSearchField(
     }
 }
 
-@Composable
-private fun pillSearchFieldTextStyle() = MaterialTheme.typography.bodyMedium
+@Composable private fun pillSearchFieldTextStyle() = MaterialTheme.typography.bodyMedium
 
 @Preview
 @Composable
 private fun PillSearchBarPreview() {
-    AndroidIDEThemesTheme {
-        PillSearchField(
-            modifier = Modifier.width(300.dp)
-        )
-    }
+    AndroidIDEThemesTheme { PillSearchField(modifier = Modifier.width(300.dp)) }
 }
 
 @Preview
 @Composable
 private fun PillSearchBarWithQueryPreview() {
     AndroidIDEThemesTheme {
-        PillSearchField(
-            modifier = Modifier.width(300.dp),
-            initialQuery = "material icons theme"
-        )
+        PillSearchField(modifier = Modifier.width(300.dp), initialQuery = "material icons theme")
     }
 }

@@ -9,6 +9,5 @@ import okhttp3.OkHttpClient
 @Module
 @InstallIn(SingletonComponent::class)
 internal object NetworkModule {
-    @Provides
-    fun provideOkHttpClient() = OkHttpClient()
+    @Provides fun provideOkHttpClient() = OkHttpClient()
 }

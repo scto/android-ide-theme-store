@@ -22,7 +22,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -30,52 +29,41 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import moe.smoothie.androidide.themestore.ui.StoreFrontScroller
 import moe.smoothie.androidide.themestore.data.NavigationBarRoute
 import moe.smoothie.androidide.themestore.ui.JetbrainsStoreScroller
-import moe.smoothie.androidide.themestore.ui.JetbrainsThemeCard
-import moe.smoothie.androidide.themestore.ui.JetbrainsThemeCardState
 import moe.smoothie.androidide.themestore.ui.MicrosoftStoreScroller
 import moe.smoothie.androidide.themestore.ui.theme.AndroidIDEThemesTheme
-import moe.smoothie.androidide.themestore.viewmodels.JetbrainsStoreViewModel
-import okhttp3.OkHttpClient
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent {
-            AndroidIDEThemesTheme {
-                MainActivityView()
-            }
-        }
+        setContent { AndroidIDEThemesTheme { MainActivityView() } }
     }
 }
 
 @Composable
 fun MainActivityView() {
-    val routeJetbrainsMarketplace = NavigationBarRoute(
-        R.string.source_jetbrains,
-        R.drawable.icons8_jetbrains,
-        "jetbrains-marketplace"
-    )
-    val routeVSCodeMarketplace = NavigationBarRoute(
-        R.string.source_vscode,
-        R.drawable.icons8_visual_studio,
-        "vscode-marketplace"
-    )
-    val routeSettings = NavigationBarRoute(
-        R.string.destination_settings,
-        R.drawable.baseline_settings_24,
-        "settings"
-    )
-    val routes = listOf(
-        routeJetbrainsMarketplace,
-        routeVSCodeMarketplace,
-        routeSettings
-    )
+    val routeJetbrainsMarketplace =
+        NavigationBarRoute(
+            R.string.source_jetbrains,
+            R.drawable.icons8_jetbrains,
+            "jetbrains-marketplace",
+        )
+    val routeVSCodeMarketplace =
+        NavigationBarRoute(
+            R.string.source_vscode,
+            R.drawable.icons8_visual_studio,
+            "vscode-marketplace",
+        )
+    val routeSettings =
+        NavigationBarRoute(
+            R.string.destination_settings,
+            R.drawable.baseline_settings_24,
+            "settings",
+        )
+    val routes = listOf(routeJetbrainsMarketplace, routeVSCodeMarketplace, routeSettings)
 
     val navController = rememberNavController()
 
@@ -85,25 +73,21 @@ fun MainActivityView() {
             NavHost(
                 navController = navController,
                 startDestination = routeJetbrainsMarketplace.route,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
+                modifier = Modifier.fillMaxSize().padding(innerPadding),
             ) {
                 composable(routeJetbrainsMarketplace.route) { JetbrainsStoreScroller(it) }
-                composable(routeVSCodeMarketplace.route) { MicrosoftStoreScroller(it    ) }
+                composable(routeVSCodeMarketplace.route) { MicrosoftStoreScroller(it) }
                 composable(routeSettings.route) { PageContent("Settings will be here") }
             }
         },
-        bottomBar = { BottomNavigationBar(navController, routes) }
+        bottomBar = { BottomNavigationBar(navController, routes) },
     )
 }
 
 @Preview
 @Composable
 fun MainActivityPreview() {
-    AndroidIDEThemesTheme {
-        MainActivityView()
-    }
+    AndroidIDEThemesTheme { MainActivityView() }
 }
 
 @Composable
@@ -111,7 +95,7 @@ fun PageContent(text: String) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Text(text)
     }
@@ -129,20 +113,18 @@ fun BottomNavigationBar(navController: NavController, routes: List<NavigationBar
                     Icon(
                         painter = painterResource(route.iconResource),
                         contentDescription = stringResource(route.nameResource),
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(24.dp),
                     )
                 },
                 label = { Text(stringResource(route.nameResource)) },
                 selected = currentDestination?.route == route.route,
                 onClick = {
                     navController.navigate(route.route) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
-                        }
+                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
                         launchSingleTop = true
                         restoreState = true
                     }
-                }
+                },
             )
         }
     }

@@ -1,18 +1,15 @@
 package moe.smoothie.androidide.themestore.data
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import moe.smoothie.androidide.themestore.util.AnyFieldSerializer
 
 @Serializable
-data class MicrosoftStoreResponse(
-    val results: List<Result>
-) {
+data class MicrosoftStoreResponse(val results: List<Result>) {
     @Serializable
     data class Result(
         val extensions: List<Extension>,
         val pagingToken: String?,
-        val resultMetadata: List<ResultMetadata>
+        val resultMetadata: List<ResultMetadata>,
     ) {
         @Serializable
         data class Extension(
@@ -30,7 +27,7 @@ data class MicrosoftStoreResponse(
             val tags: List<String>,
             val statistics: List<Statistic>,
             val installationTargets: List<InstallationTarget>,
-            val deploymentType: Int
+            val deploymentType: Int,
         ) {
             @Serializable
             data class Publisher(
@@ -39,7 +36,7 @@ data class MicrosoftStoreResponse(
                 val displayName: String,
                 val flags: String,
                 val domain: String?,
-                val isDomainVerified: Boolean
+                val isDomainVerified: Boolean,
             )
 
             @Serializable
@@ -50,44 +47,29 @@ data class MicrosoftStoreResponse(
                 val files: List<ExtensionFile>,
                 val properties: List<ExtensionProperty>,
                 val assetUri: String,
-                val fallbackAssetUri: String
+                val fallbackAssetUri: String,
             ) {
-                @Serializable
-                data class ExtensionFile(
-                    val assetType: String,
-                    val source: String
-                )
+                @Serializable data class ExtensionFile(val assetType: String, val source: String)
 
-                @Serializable
-                data class ExtensionProperty(
-                    val key: String,
-                    val value: String
-                )
+                @Serializable data class ExtensionProperty(val key: String, val value: String)
             }
 
             @Serializable
             data class Statistic(
                 val statisticName: String,
-                @Serializable(with = AnyFieldSerializer::class) val value: Any
+                @Serializable(with = AnyFieldSerializer::class) val value: Any,
             )
 
             @Serializable
-            data class InstallationTarget(
-                val target: String,
-                val targetVersion: String
-            )
+            data class InstallationTarget(val target: String, val targetVersion: String)
         }
 
         @Serializable
         data class ResultMetadata(
             val metadataType: String,
-            val metadataItems: List<ResultMetadataItem>
+            val metadataItems: List<ResultMetadataItem>,
         ) {
-            @Serializable
-            data class ResultMetadataItem(
-                val name: String,
-                val count: Int
-            )
+            @Serializable data class ResultMetadataItem(val name: String, val count: Int)
         }
     }
 }

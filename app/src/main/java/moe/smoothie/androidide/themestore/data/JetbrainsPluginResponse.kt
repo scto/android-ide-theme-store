@@ -1,4 +1,5 @@
 package moe.smoothie.androidide.themestore.data
+
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -28,7 +29,7 @@ data class JetbrainsPluginResponse(
     val isHidden: Boolean,
     val isMonetizationAvailable: Boolean,
     val isBlocked: Boolean,
-    val isModificationAllowed: Boolean
+    val isModificationAllowed: Boolean,
 ) {
     @Serializable
     data class Vendor(
@@ -43,7 +44,7 @@ data class JetbrainsPluginResponse(
         val country: String,
         val isVerified: Boolean,
         val isTrader: Boolean,
-        val description: String
+        val description: String,
     )
 
     @Serializable
@@ -55,13 +56,9 @@ data class JetbrainsPluginResponse(
         val bugtrackerUrl: String,
         val docUrl: String,
         val sourceCodeUrl: String,
-        val customContacts: List<CustomContact>
+        val customContacts: List<CustomContact>,
     ) {
-        @Serializable
-        data class CustomContact(
-            val title: String,
-            val link: String
-        )
+        @Serializable data class CustomContact(val title: String, val link: String)
     }
 
     @Serializable
@@ -70,17 +67,10 @@ data class JetbrainsPluginResponse(
         val name: String,
         val privileged: Boolean,
         val searchable: Boolean,
-        val link: String
+        val link: String,
     )
 
-    @Serializable
-    data class Screen(
-        val url: String
-    )
+    @Serializable data class Screen(val url: String)
 
-    @Serializable
-    data class Theme(
-        val name: String,
-        val dark: Boolean
-    )
+    @Serializable data class Theme(val name: String, val dark: Boolean)
 }

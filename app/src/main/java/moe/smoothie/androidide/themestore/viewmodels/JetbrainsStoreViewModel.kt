@@ -2,13 +2,11 @@ package moe.smoothie.androidide.themestore.viewmodels
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -19,12 +17,10 @@ import moe.smoothie.androidide.themestore.util.hasNetwork
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.coroutines.executeAsync
-import javax.inject.Inject
 
 @HiltViewModel
-class JetbrainsStoreViewModel @Inject constructor(
-    private val httpClient: OkHttpClient
-) : StoreFrontViewModel<JetbrainsThemeCardState>() {
+class JetbrainsStoreViewModel @Inject constructor(private val httpClient: OkHttpClient) :
+    StoreFrontViewModel<JetbrainsThemeCardState>() {
     override val itemsPerPage: Int = 10
 
     private val tag = "JetbrainsStoreViewModel"
@@ -50,9 +46,8 @@ class JetbrainsStoreViewModel @Inject constructor(
 
             mutableIsLoading.update { true }
 
-            val request = Request.Builder()
-                .url(getPageUrl(mutableItems.value.size, itemsPerPage))
-                .build()
+            val request =
+                Request.Builder().url(getPageUrl(mutableItems.value.size, itemsPerPage)).build()
 
             try {
                 httpClient.newCall(request).executeAsync().use { response ->
@@ -76,15 +71,16 @@ class JetbrainsStoreViewModel @Inject constructor(
                     }
 
                     mutableItems.update { list ->
-                        list + data.plugins.map { plugin ->
-                            JetbrainsThemeCardState(
-                                previewUrl = basePreviewUrl + plugin.previewImage,
-                                name = plugin.name,
-                                rating = plugin.rating,
-                                downloads = plugin.downloads,
-                                trimmedDescription = plugin.preview
-                            )
-                        }
+                        list +
+                            data.plugins.map { plugin ->
+                                JetbrainsThemeCardState(
+                                    previewUrl = basePreviewUrl + plugin.previewImage,
+                                    name = plugin.name,
+                                    rating = plugin.rating,
+                                    downloads = plugin.downloads,
+                                    trimmedDescription = plugin.preview,
+                                )
+                            }
                     }
 
                     if (data.total <= items.value.size) {

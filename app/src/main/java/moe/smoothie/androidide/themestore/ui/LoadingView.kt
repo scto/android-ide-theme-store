@@ -30,7 +30,7 @@ enum class LoadingStatus {
     LOADING,
     ERROR_PARSING,
     ERROR_RECEIVING,
-    NO_NETWORK
+    NO_NETWORK,
 }
 
 @Composable
@@ -39,13 +39,13 @@ fun StatusView(
     hero: @Composable () -> Unit,
     header: @Composable () -> Unit,
     description: @Composable () -> Unit,
-    reloadCallback: () -> Unit = { },
+    reloadCallback: () -> Unit = {},
 ) {
     Box(modifier = modifier) {
         Column(
             modifier = modifier.padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             CompositionLocalProvider(
                 LocalContentColor provides MaterialTheme.colorScheme.secondary
@@ -53,27 +53,24 @@ fun StatusView(
                 hero()
             }
             CompositionLocalProvider(
-                LocalTextStyle provides MaterialTheme.typography.titleMedium.copy(
-                    textAlign = TextAlign.Center
-                )
+                LocalTextStyle provides
+                    MaterialTheme.typography.titleMedium.copy(textAlign = TextAlign.Center)
             ) {
                 header()
             }
             CompositionLocalProvider(
-                LocalTextStyle provides MaterialTheme.typography.bodyMedium.copy(
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center
-                ),
+                LocalTextStyle provides
+                    MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center,
+                    )
             ) {
                 description()
             }
-            FilledTonalButton(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { reloadCallback() }
-            ) {
+            FilledTonalButton(modifier = Modifier.fillMaxWidth(), onClick = { reloadCallback() }) {
                 Icon(
                     painter = painterResource(R.drawable.baseline_refresh_24),
-                    contentDescription = null
+                    contentDescription = null,
                 )
                 Text(stringResource(R.string.button_reload))
             }
@@ -85,7 +82,7 @@ fun StatusView(
 fun StatusView(
     modifier: Modifier = Modifier,
     loadingStatus: LoadingStatus,
-    reloadCallback: () -> Unit = { }
+    reloadCallback: () -> Unit = {},
 ) {
     val hero: @Composable () -> Unit
     val header: String
@@ -101,7 +98,7 @@ fun StatusView(
             hero = {
                 Icon(
                     painter = painterResource(R.drawable.round_translate_24),
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
             header = stringResource(R.string.header_unexpected_response)
@@ -111,7 +108,7 @@ fun StatusView(
             hero = {
                 Icon(
                     painter = painterResource(R.drawable.round_data_object_24),
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
             header = stringResource(R.string.header_failure_receiving)
@@ -121,7 +118,7 @@ fun StatusView(
             hero = {
                 Icon(
                     painter = painterResource(R.drawable.round_signal_wifi_off_24),
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
             header = stringResource(R.string.header_no_connection)
@@ -134,7 +131,7 @@ fun StatusView(
         hero = { hero() },
         header = { Text(header) },
         description = { Text(description) },
-        reloadCallback = { reloadCallback() }
+        reloadCallback = { reloadCallback() },
     )
 }
 
@@ -142,10 +139,7 @@ fun StatusView(
 @Composable
 private fun PreviewLoading() {
     AndroidIDEThemesTheme {
-        StatusView(
-            modifier = Modifier.fillMaxSize(),
-            loadingStatus = LoadingStatus.LOADING
-        )
+        StatusView(modifier = Modifier.fillMaxSize(), loadingStatus = LoadingStatus.LOADING)
     }
 }
 
@@ -153,10 +147,7 @@ private fun PreviewLoading() {
 @Composable
 private fun PreviewErrorParsing() {
     AndroidIDEThemesTheme {
-        StatusView(
-            modifier = Modifier.fillMaxSize(),
-            loadingStatus = LoadingStatus.ERROR_PARSING
-        )
+        StatusView(modifier = Modifier.fillMaxSize(), loadingStatus = LoadingStatus.ERROR_PARSING)
     }
 }
 
@@ -164,10 +155,7 @@ private fun PreviewErrorParsing() {
 @Composable
 private fun PreviewErrorReceiving() {
     AndroidIDEThemesTheme {
-        StatusView(
-            modifier = Modifier.fillMaxSize(),
-            loadingStatus = LoadingStatus.ERROR_RECEIVING
-        )
+        StatusView(modifier = Modifier.fillMaxSize(), loadingStatus = LoadingStatus.ERROR_RECEIVING)
     }
 }
 
@@ -175,9 +163,6 @@ private fun PreviewErrorReceiving() {
 @Composable
 private fun PreviewNoNetwork() {
     AndroidIDEThemesTheme {
-        StatusView(
-            modifier = Modifier.fillMaxSize(),
-            loadingStatus = LoadingStatus.NO_NETWORK
-        )
+        StatusView(modifier = Modifier.fillMaxSize(), loadingStatus = LoadingStatus.NO_NETWORK)
     }
 }

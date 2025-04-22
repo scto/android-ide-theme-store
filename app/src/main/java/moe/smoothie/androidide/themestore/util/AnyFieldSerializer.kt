@@ -27,8 +27,10 @@ object AnyFieldSerializer : KSerializer<Any> {
     }
 
     override fun deserialize(decoder: Decoder): Any {
-        val input = decoder as? JsonDecoder ?: throw SerializationException("This can only be used with JSON")
-        val element = input. decodeJsonElement()
+        val input =
+            decoder as? JsonDecoder
+                ?: throw SerializationException("This can only be used with JSON")
+        val element = input.decodeJsonElement()
 
         return when {
             element is JsonPrimitive && element.isString -> element.content

@@ -43,77 +43,63 @@ fun ThemeDescription(
     rating: Float,
     publisherDomain: String? = null,
     publisherVerified: Boolean = false,
-    installButtonCallback: () -> Unit = { }
+    installButtonCallback: () -> Unit = {},
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surface)
-    ) {
+    Box(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             SubcomposeAsyncImage(
-                modifier = Modifier
-                    .size(64.dp)
-                    .clip(CircleShape),
-                model = if (iconUrl.endsWith(".svg"))
-                    ImageRequest.Builder(LocalContext.current)
-                        .data(iconUrl)
-                        .decoderFactory(SvgDecoder.Factory())
-                        .build()
-                else
-                    iconUrl,
-                contentDescription = null
-            ) { }
+                modifier = Modifier.size(64.dp).clip(CircleShape),
+                model =
+                    if (iconUrl.endsWith(".svg"))
+                        ImageRequest.Builder(LocalContext.current)
+                            .data(iconUrl)
+                            .decoderFactory(SvgDecoder.Factory())
+                            .build()
+                    else iconUrl,
+                contentDescription = null,
+            ) {}
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Text(
-                    text = name,
-                    style = MaterialTheme.typography.titleLarge
-                )
+                Text(text = name, style = MaterialTheme.typography.titleLarge)
                 Row {
-                    val textStyle = MaterialTheme.typography.bodySmall
-                        .copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    val textStyle =
+                        MaterialTheme.typography.bodySmall.copy(
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     val lineHeightDp = textStyle.lineHeight.toDp()
 
                     Icon(
                         modifier = Modifier.size(lineHeightDp),
                         painter = painterResource(R.drawable.baseline_person_24),
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     Spacer(Modifier.width(8.dp))
-                    Text(
-                        text = publisherName,
-                        style = textStyle
-                    )
+                    Text(text = publisherName, style = textStyle)
                     if (publisherDomain?.isNotEmpty() == true) {
                         Spacer(Modifier.width(16.dp))
                         Icon(
                             modifier = Modifier.size(lineHeightDp),
                             painter = painterResource(R.drawable.baseline_public_24),
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                         Spacer(Modifier.width(8.dp))
-                        Text(
-                            text = formatDomain(publisherDomain),
-                            style = textStyle
-                        )
+                        Text(text = formatDomain(publisherDomain), style = textStyle)
 
                         if (publisherVerified) {
                             Spacer(Modifier.width(8.dp))
                             Icon(
                                 modifier = Modifier.size(lineHeightDp),
                                 painter = painterResource(R.drawable.baseline_verified_24),
-                                contentDescription = stringResource(R.string.content_description_publisher_verified),
-                                tint = MaterialTheme.colorScheme.primary
+                                contentDescription =
+                                    stringResource(R.string.content_description_publisher_verified),
+                                tint = MaterialTheme.colorScheme.primary,
                             )
                         }
                     }
@@ -123,23 +109,17 @@ fun ThemeDescription(
 
                     RatingRow(
                         modifier = Modifier.height(textStyle.lineHeight.toDp()),
-                        rating = rating
+                        rating = rating,
                     )
                     Spacer(Modifier.weight(1f))
                     Icon(
                         modifier = Modifier.size(textStyle.lineHeight.toDp()),
                         painter = painterResource(R.drawable.baseline_download_24),
-                        contentDescription = null
+                        contentDescription = null,
                     )
-                    Text(
-                        text = formatNumber(downloads),
-                        style = textStyle
-                    )
+                    Text(text = formatNumber(downloads), style = textStyle)
                 }
-                Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                Text(text = description, style = MaterialTheme.typography.bodyMedium)
                 Row {
                     Spacer(Modifier.weight(1f))
                     FilledTonalButton(
@@ -148,11 +128,11 @@ fun ThemeDescription(
                             Icon(
                                 modifier = Modifier.size(24.dp),
                                 painter = painterResource(R.drawable.phosphor_download_simple),
-                                contentDescription = null
+                                contentDescription = null,
                             )
                             Spacer(Modifier.width(8.dp))
                             Text(stringResource(R.string.action_download_theme))
-                        }
+                        },
                     )
                 }
             }
@@ -172,7 +152,7 @@ private fun ThemeDescriptionPreview() {
             publisherDomain = "https://microsoft.com/",
             publisherVerified = true,
             rating = 3.5f,
-            downloads = 1_234_567
+            downloads = 1_234_567,
         )
     }
 }

@@ -9,11 +9,11 @@ import moe.smoothie.androidide.themestore.viewmodels.MicrosoftStoreViewModel
 @Composable
 fun MicrosoftStoreScroller(
     backStackEntry: NavBackStackEntry,
-    viewModel: MicrosoftStoreViewModel = hiltViewModel(backStackEntry)
+    viewModel: MicrosoftStoreViewModel = hiltViewModel(backStackEntry),
 ) {
     StoreFrontScroller(
         viewModel = viewModel,
         cardComposable = { MicrosoftStoreCard(it) },
-        minSize = 150.dp
+        minSize = 150.dp,
     )
 }

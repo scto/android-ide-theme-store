@@ -37,7 +37,7 @@ data class JetbrainsThemeCardState(
     val name: String,
     val rating: Float,
     val downloads: Long,
-    val trimmedDescription: String
+    val trimmedDescription: String,
 )
 
 @Composable
@@ -48,43 +48,36 @@ fun JetbrainsThemeCard(state: JetbrainsThemeCardState) {
     val context = LocalContext.current
 
     OutlinedCard(
-        onClick = {
-            context.startActivity(Intent(context, ThemeActivity::class.java))
-        },
-        modifier = Modifier.fillMaxWidth()
+        onClick = { context.startActivity(Intent(context, ThemeActivity::class.java)) },
+        modifier = Modifier.fillMaxWidth(),
     ) {
         Column {
-            BoxWithConstraints(
-                modifier = Modifier.fillMaxWidth()
-            ) {
+            BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
                 SubcomposeAsyncImage(
                     model = state.previewUrl,
                     contentDescription = null,
-                    modifier = Modifier
-                        .height(maxWidth * 480f / 768f)
-                        .fillMaxWidth(),
-                    contentScale = ContentScale.Crop
+                    modifier = Modifier.height(maxWidth * 480f / 768f).fillMaxWidth(),
+                    contentScale = ContentScale.Crop,
                 )
             }
             Column(
-                modifier = Modifier.padding(
-                    top = spacing,
-                    start = spacing * 2,
-                    end = spacing * 2,
-                    bottom = spacing * 2
-                )
+                modifier =
+                    Modifier.padding(
+                        top = spacing,
+                        start = spacing * 2,
+                        end = spacing * 2,
+                        bottom = spacing * 2,
+                    )
             ) {
                 Text(
                     text = state.name,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
                 )
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = spacing / 2),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    modifier = Modifier.fillMaxWidth().padding(top = spacing / 2),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Row(modifier = Modifier.align(Alignment.CenterVertically)) {
                         for (i in 0..5) {
@@ -92,7 +85,7 @@ fun JetbrainsThemeCard(state: JetbrainsThemeCardState) {
                                 painter = if (state.rating >= i) filledStar else outlinedStar,
                                 contentDescription = null,
                                 modifier = Modifier.size(16.dp),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
                     }
@@ -101,34 +94,31 @@ fun JetbrainsThemeCard(state: JetbrainsThemeCardState) {
                             painter = painterResource(R.drawable.baseline_download_24),
                             contentDescription = null,
                             modifier = Modifier.size(16.dp).align(Alignment.CenterVertically),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                         Text(
                             text = formatNumber(state.downloads),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier
-                                .wrapContentHeight(Alignment.CenterVertically)
-                                .align(Alignment.CenterVertically)
-                                .padding(start = spacing / 2)
+                            modifier =
+                                Modifier.wrapContentHeight(Alignment.CenterVertically)
+                                    .align(Alignment.CenterVertically)
+                                    .padding(start = spacing / 2),
                         )
                     }
                 }
                 Box(modifier = Modifier.padding(top = spacing / 2)) {
                     val textStyle = MaterialTheme.typography.bodyMedium
                     val maxLines = 3
-                    val height = with(LocalDensity.current) {
-                        textStyle.lineHeight.toDp() * maxLines
-                    }
+                    val height =
+                        with(LocalDensity.current) { textStyle.lineHeight.toDp() * maxLines }
 
                     Text(
                         text = state.trimmedDescription,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(height),
+                        modifier = Modifier.fillMaxWidth().height(height),
                         style = textStyle,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = maxLines
+                        maxLines = maxLines,
                     )
                 }
             }
@@ -143,12 +133,13 @@ internal fun JetbrainsThemeCardPreview(themeName: String = "One Dark Pro Theme")
         Box(modifier = Modifier.width(300.dp)) {
             JetbrainsThemeCard(
                 JetbrainsThemeCardState(
-                previewUrl = "https://example.com", // Images do not load in previews
-                name = themeName,
-                rating = 4.3f,
-                downloads = 1_234_567,
-                trimmedDescription = "One Dark theme for JetBrains. Do you need help? Please check the docs FAQs to see if we can solve your problem. If that does not fix your problem, please submit an..."
-            )
+                    previewUrl = "https://example.com", // Images do not load in previews
+                    name = themeName,
+                    rating = 4.3f,
+                    downloads = 1_234_567,
+                    trimmedDescription =
+                        "One Dark theme for JetBrains. Do you need help? Please check the docs FAQs to see if we can solve your problem. If that does not fix your problem, please submit an...",
+                )
             )
         }
     }

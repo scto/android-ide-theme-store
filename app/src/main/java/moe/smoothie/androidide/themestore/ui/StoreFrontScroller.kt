@@ -52,7 +52,7 @@ import moe.smoothie.androidide.themestore.viewmodels.StoreFrontViewModel
 fun <State> StoreFrontScroller(
     viewModel: StoreFrontViewModel<State>,
     cardComposable: @Composable (State) -> Unit,
-    minSize: Dp = 300.dp
+    minSize: Dp = 300.dp,
 ) {
     val tag = "StoreFrontScroller"
 
@@ -74,18 +74,14 @@ fun <State> StoreFrontScroller(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(8.dp),
-            state = lazyGridState
+            state = lazyGridState,
         ) {
             item(span = { GridItemSpan(maxLineSpan) }) {
                 Box(Modifier.height(pillSearchFieldHeight() + 16.dp * 25))
             }
-            items(
-                count = cards.size,
-                key = { index -> "${cards[index].hashCode()}-$index" }
-            ) { index ->
-                Box(Modifier.animateItem()) {
-                    cardComposable(cards[index])
-                }
+            items(count = cards.size, key = { index -> "${cards[index].hashCode()}-$index" }) {
+                index ->
+                Box(Modifier.animateItem()) { cardComposable(cards[index]) }
                 if (index == cards.size - viewModel.itemsPerPage / 2) {
                     SideEffect {
                         if (!isLoading) {
@@ -95,16 +91,12 @@ fun <State> StoreFrontScroller(
                 }
             }
             if (cards.isEmpty()) {
-                item {
-                    SideEffect {
-                        viewModel.loadItems(context)
-                    }
-                }
+                item { SideEffect { viewModel.loadItems(context) } }
             }
             item(span = { GridItemSpan(maxLineSpan) }) {
                 BoxWithConstraints(
                     modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     val modifier = Modifier.width(min(450.dp, maxWidth))
 
@@ -115,7 +107,7 @@ fun <State> StoreFrontScroller(
                             viewModel = viewModel,
                             coroutineScope = coroutineScope,
                             context = LocalContext.current,
-                            loadingStatus = loadingStatus
+                            loadingStatus = loadingStatus,
                         )
                     } else {
                         FooterListEnd(
@@ -124,7 +116,7 @@ fun <State> StoreFrontScroller(
                             viewModel = viewModel,
                             coroutineScope = coroutineScope,
                             cardsSize = cards.size,
-                            context = LocalContext.current
+                            context = LocalContext.current,
                         )
                     }
                 }
@@ -132,36 +124,30 @@ fun <State> StoreFrontScroller(
         }
 
         PillSearchField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-                .align(Alignment.TopCenter)
-                .shadow(
-                    elevation = if (lazyGridState.isScrolled()) 3.dp else 0.dp,
-                    shape = RoundedCornerShape(300.dp)
-                ),
+            modifier =
+                Modifier.fillMaxWidth()
+                    .padding(16.dp)
+                    .align(Alignment.TopCenter)
+                    .shadow(
+                        elevation = if (lazyGridState.isScrolled()) 3.dp else 0.dp,
+                        shape = RoundedCornerShape(300.dp),
+                    ),
             onValueChanged = { viewModel.setSearchQuery(it, context) },
         )
 
         val isFabVisible by remember { derivedStateOf { lazyGridState.firstVisibleItemIndex } }
         AnimatedVisibility(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp),
+            modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp),
             visible = isFabVisible > 0,
             enter = scaleIn() + fadeIn(),
-            exit = scaleOut() + fadeOut()
+            exit = scaleOut() + fadeOut(),
         ) {
             FloatingActionButton(
-                onClick = {
-                    coroutineScope.launch {
-                        lazyGridState.animateScrollToItem(0)
-                    }
-                }
+                onClick = { coroutineScope.launch { lazyGridState.animateScrollToItem(0) } }
             ) {
                 Icon(
                     painter = painterResource(R.drawable.baseline_arrow_upward_24),
-                    contentDescription = stringResource(R.string.content_description_scroll_to_top)
+                    contentDescription = stringResource(R.string.content_description_scroll_to_top),
                 )
             }
         }
@@ -172,7 +158,7 @@ private fun <State> reloadCallback(
     coroutineScope: CoroutineScope,
     lazyGridState: LazyGridState,
     viewModel: StoreFrontViewModel<State>,
-    context: Context
+    context: Context,
 ) {
     coroutineScope.launch {
         lazyGridState.animateScrollToItem(0)
@@ -187,13 +173,13 @@ internal fun <State> LoadingFooterCard(
     context: Context,
     lazyGridState: LazyGridState,
     viewModel: StoreFrontViewModel<State>,
-    coroutineScope: CoroutineScope
+    coroutineScope: CoroutineScope,
 ) {
     ElevatedCard {
         StatusView(
             modifier = modifier,
             loadingStatus = loadingStatus,
-            reloadCallback = { reloadCallback(coroutineScope, lazyGridState, viewModel, context) }
+            reloadCallback = { reloadCallback(coroutineScope, lazyGridState, viewModel, context) },
         )
     }
 }
@@ -205,7 +191,7 @@ internal fun <State> FooterListEnd(
     viewModel: StoreFrontViewModel<State>,
     coroutineScope: CoroutineScope,
     context: Context,
-    cardsSize: Int
+    cardsSize: Int,
 ) {
     ElevatedCard {
         StatusView(
@@ -213,17 +199,14 @@ internal fun <State> FooterListEnd(
             hero = {
                 Icon(
                     painter = painterResource(R.drawable.round_auto_awesome_24),
-                    contentDescription = null
+                    contentDescription = null,
                 )
             },
             header = { Text(stringResource(R.string.header_all_loaded)) },
             description = {
-                Text(
-                    stringResource(R.string.description_all_loaded)
-                        .format(cardsSize)
-                )
+                Text(stringResource(R.string.description_all_loaded).format(cardsSize))
             },
-            reloadCallback = { reloadCallback(coroutineScope, lazyGridState, viewModel, context) }
+            reloadCallback = { reloadCallback(coroutineScope, lazyGridState, viewModel, context) },
         )
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.update
@@ -20,12 +21,10 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.coroutines.executeAsync
-import javax.inject.Inject
 
 @HiltViewModel
-class MicrosoftStoreViewModel @Inject constructor(
-    private val httpClient: OkHttpClient
-) : StoreFrontViewModel<MicrosoftStoreCardState>() {
+class MicrosoftStoreViewModel @Inject constructor(private val httpClient: OkHttpClient) :
+    StoreFrontViewModel<MicrosoftStoreCardState>() {
     override val itemsPerPage: Int = 10
 
     private val tag = "MicrosoftStoreViewModel"
@@ -50,17 +49,21 @@ class MicrosoftStoreViewModel @Inject constructor(
 
             mutableIsLoading.update { true }
 
-            val payload = Json.encodeToString(MicrosoftStoreRequestPayload.construct(
-                pageSize = itemsPerPage,
-                pageNumber = 1 + items.value.size / itemsPerPage,
-                searchQuery = searchQuery.value
-            ))
+            val payload =
+                Json.encodeToString(
+                    MicrosoftStoreRequestPayload.construct(
+                        pageSize = itemsPerPage,
+                        pageNumber = 1 + items.value.size / itemsPerPage,
+                        searchQuery = searchQuery.value,
+                    )
+                )
 
-            val request = Request.Builder()
-                .url("https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery")
-                .addHeader("Content-Type", "application/json; charset=utf-8")
-                .post(payload.toRequestBody("application/json".toMediaType()))
-                .build()
+            val request =
+                Request.Builder()
+                    .url("https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery")
+                    .addHeader("Content-Type", "application/json; charset=utf-8")
+                    .post(payload.toRequestBody("application/json".toMediaType()))
+                    .build()
 
             try {
                 httpClient.newCall(request).executeAsync().use { response ->
@@ -83,24 +86,37 @@ class MicrosoftStoreViewModel @Inject constructor(
                     }
 
                     mutableItems.update { list ->
-                        list + data!!.results.first().extensions.map { extension ->
-                            MicrosoftStoreCardState(
-                                iconUrl = extension.versions.first().files.find {
-                                    it.assetType == "Microsoft.VisualStudio.Services.Icons.Default"
-                                }?.source ?: "",
-                                name = extension.displayName,
-                                developerName = extension.publisher.displayName,
-                                developerWebsite = extension.publisher.domain,
-                                developerWebsiteVerified = extension.publisher.isDomainVerified,
-                                downloads = extension.statistics.find {
-                                    it.statisticName == "downloadCount"
-                                }?.value.toString().toLongOrNull() ?: 0L,
-                                description = extension.shortDescription,
-                                rating = extension.statistics.find {
-                                    it.statisticName == "averagerating"
-                                }?.value.toString().toFloatOrNull() ?: 0f
-                            )
-                        }
+                        list +
+                            data!!.results.first().extensions.map { extension ->
+                                MicrosoftStoreCardState(
+                                    iconUrl =
+                                        extension.versions
+                                            .first()
+                                            .files
+                                            .find {
+                                                it.assetType ==
+                                                    "Microsoft.VisualStudio.Services.Icons.Default"
+                                            }
+                                            ?.source ?: "",
+                                    name = extension.displayName,
+                                    developerName = extension.publisher.displayName,
+                                    developerWebsite = extension.publisher.domain,
+                                    developerWebsiteVerified = extension.publisher.isDomainVerified,
+                                    downloads =
+                                        extension.statistics
+                                            .find { it.statisticName == "downloadCount" }
+                                            ?.value
+                                            .toString()
+                                            .toLongOrNull() ?: 0L,
+                                    description = extension.shortDescription,
+                                    rating =
+                                        extension.statistics
+                                            .find { it.statisticName == "averagerating" }
+                                            ?.value
+                                            .toString()
+                                            .toFloatOrNull() ?: 0f,
+                                )
+                            }
                     }
                 }
             } catch (exception: Exception) {

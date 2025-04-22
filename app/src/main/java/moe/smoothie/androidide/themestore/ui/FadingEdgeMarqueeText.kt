@@ -29,25 +29,25 @@ fun FadingEdgeMarqueeText(
     style: TextStyle = LocalTextStyle.current,
     textAlign: TextAlign = TextAlign.Start,
     maxLines: Int = Int.MAX_VALUE,
-    gradientColors: List<Color> = listOf(
-        MaterialTheme.colorScheme.surface,
-        Color.Transparent,
-        Color.Transparent,
-        Color.Transparent,
-        Color.Transparent,
-        MaterialTheme.colorScheme.surface,
-    )
+    gradientColors: List<Color> =
+        listOf(
+            MaterialTheme.colorScheme.surface,
+            Color.Transparent,
+            Color.Transparent,
+            Color.Transparent,
+            Color.Transparent,
+            MaterialTheme.colorScheme.surface,
+        ),
 ) {
     var boxWidth by remember { mutableIntStateOf(0) }
     var textWidth by remember { mutableIntStateOf(0) }
 
     Box(modifier.onGloballyPositioned { boxWidth = it.size.width }) {
         Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .basicMarquee()
-                .clip(RectangleShape)
-                .onGloballyPositioned { textWidth = it.size.width },
+            modifier =
+                Modifier.fillMaxWidth().basicMarquee().clip(RectangleShape).onGloballyPositioned {
+                    textWidth = it.size.width
+                },
             text = text,
             style = style,
             textAlign = textAlign,
@@ -56,8 +56,7 @@ fun FadingEdgeMarqueeText(
 
         if (boxWidth < textWidth) {
             Box(
-                Modifier
-                    .matchParentSize()
+                Modifier.matchParentSize()
                     .graphicsLayer { clip = true }
                     .background(Brush.horizontalGradient(gradientColors))
             )

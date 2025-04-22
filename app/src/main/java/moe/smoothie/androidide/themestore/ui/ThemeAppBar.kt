@@ -35,49 +35,41 @@ fun ThemeActivityTopBar(
     storeName: String,
     storeIcon: Painter,
     scrolled: Boolean,
-    backButtonCallback: () -> Unit = { },
-    openStoreButtonCallback: () -> Unit = { }
+    backButtonCallback: () -> Unit = {},
+    openStoreButtonCallback: () -> Unit = {},
 ) {
-    val backgroundColor by animateColorAsState(
-        targetValue = if (scrolled)
-            MaterialTheme.colorScheme.surfaceContainer
-        else
-            MaterialTheme.colorScheme.surface,
-        label = "top_bar_background"
-    )
+    val backgroundColor by
+        animateColorAsState(
+            targetValue =
+                if (scrolled) MaterialTheme.colorScheme.surfaceContainer
+                else MaterialTheme.colorScheme.surface,
+            label = "top_bar_background",
+        )
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(backgroundColor)
-    ) {
+    Box(modifier = Modifier.fillMaxWidth().background(backgroundColor)) {
         Box(Modifier.statusBarsPadding()) {
             Row(
-                modifier = Modifier
-                    .height(TopAppBarDefaults.MediumAppBarCollapsedHeight),
+                modifier = Modifier.height(TopAppBarDefaults.MediumAppBarCollapsedHeight),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 IconButton(onClick = { backButtonCallback() }) {
                     Icon(
                         painter = painterResource(R.drawable.baseline_arrow_back_24),
-                        contentDescription = stringResource(R.string.content_description_go_back)
+                        contentDescription = stringResource(R.string.content_description_go_back),
                     )
                 }
                 Image(
                     modifier = Modifier.size(24.dp),
                     painter = storeIcon,
-                    contentDescription = null
+                    contentDescription = null,
                 )
-                Text(
-                    text = storeName,
-                    style = MaterialTheme.typography.titleMedium
-                )
+                Text(text = storeName, style = MaterialTheme.typography.titleMedium)
                 Spacer(Modifier.weight(1f))
                 IconButton(onClick = { openStoreButtonCallback() }) {
                     Icon(
                         painter = painterResource(R.drawable.baseline_open_in_new_24),
-                        contentDescription = stringResource(R.string.action_open_store)
+                        contentDescription = stringResource(R.string.action_open_store),
                     )
                 }
             }
@@ -92,7 +84,7 @@ private fun ThemeActivityTopBarPreview() {
         ThemeActivityTopBar(
             storeIcon = painterResource(R.drawable.jetbrains_marketplace_icon),
             storeName = "JetBrains Marketplace",
-            scrolled = false
+            scrolled = false,
         )
     }
 }
