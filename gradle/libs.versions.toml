@@ -15,7 +15,7 @@ kspVersion = "2.0.21-1.0.28"
 #hiltAndroidCompiler = "2.56.1"
 hiltNavigationCompose = "1.2.0"
 
-coreKtx = "1.15.0"
+coreKtx = "1.16.0"
 
 desugar_jdk_libs = "2.1.5"
 
