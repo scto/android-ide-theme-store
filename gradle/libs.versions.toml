@@ -26,7 +26,7 @@ kotlinx-serialization-json = "1.7.3"
 material-icons-extended = "1.7.6"
 
 lifecycleRuntimeKtx = "2.8.6"
-activityCompose = "1.9.2"
+activityCompose = "1.9.3"
 composeBom = "2024.09.02"
 lifecycleViewmodelCompose = "2.8.6"
 navigationCompose = "2.8.9"
