@@ -21,7 +21,7 @@ desugar_jdk_libs = "2.1.5"
 
 #kotlinxSerializationJson = "1.7.1"
 kotlinx-coroutines = "1.10.2"
-kotlinx-serialization-json = "1.7.3"
+kotlinx-serialization-json = "1.8.1"
 
 material-icons-extended = "1.7.6"
 
