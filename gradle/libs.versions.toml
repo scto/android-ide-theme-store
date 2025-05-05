@@ -1,7 +1,7 @@
 [versions]
 agp = "8.9.2"
 kotlin = "2.0.21"
-hiltVersion = "2.52"
+hiltVersion = "2.53.1"
 
 #agp = "8.8.2"
 #kotlin = "2.0.20"
