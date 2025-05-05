@@ -1,6 +1,6 @@
 [versions]
 agp = "8.9.2"
-kotlin = "2.0.21"
+kotlin = "2.1.20"
 hiltVersion = "2.56.2"
 
 #agp = "8.8.2"
@@ -8,7 +8,7 @@ hiltVersion = "2.56.2"
 #hiltVersion = "2.56.1"
 
 #kspVersion = "2.0.20-1.0.24"
-kspVersion = "2.0.21-1.0.28"
+kspVersion = "2.1.20-2.0.1"
 
 #hiltAndroid = "2.56.1"
 #hiltAndroidPlugin = "2.56.1"
