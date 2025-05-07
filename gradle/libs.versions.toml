@@ -1,7 +1,7 @@
 [versions]
 accompanist = "0.32.0"
 activityCompose = "1.7.2"
-androidxFragment = "1.6.1"
+androidxFragment = "1.6.2"
 androidxTest = "1.5.0"
 androidxTestExtJUnit = "1.1.5"
 androidxTestOrchestrator = "1.4.2"
