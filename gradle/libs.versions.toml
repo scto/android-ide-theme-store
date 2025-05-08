@@ -49,7 +49,7 @@ protobuf = "3.25.7"
 room = "2.5.2"
 splashscreen = "1.0.1"
 timber = "5.0.1"
-uiAutomator = "2.2.0"
+uiAutomator = "2.3.0"
 
 [libraries]
 androidx-activity-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
