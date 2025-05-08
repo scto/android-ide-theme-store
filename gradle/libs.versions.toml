@@ -2,7 +2,7 @@
 accompanist = "0.36.0"
 activityCompose = "1.9.3"
 androidxFragment = "1.8.6"
-androidxTest = "1.5.0"
+androidxTest = "1.6.1"
 androidxTestExtJUnit = "1.1.5"
 androidxTestOrchestrator = "1.4.2"
 androidxTestRules = "1.6.1"
