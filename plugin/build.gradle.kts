@@ -40,7 +40,7 @@ dependencies {
 
     implementation(plugin("de.fayard.refreshVersions", version = "0.8.4"))
     implementation(plugin("de.fayard.dependencies", version = "0.5.0"))
-    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.0")
+    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.2")
 }
 
 
