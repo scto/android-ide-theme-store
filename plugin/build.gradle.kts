@@ -4,7 +4,7 @@ plugins {
     `java-gradle-plugin`
     `kotlin-dsl`
     `maven-publish`
-    id("com.gradle.plugin-publish") version "0.10.0"
+    id("com.gradle.plugin-publish") version "1.3.1"
 }
 
 group = "com.louiscad.splitties"
